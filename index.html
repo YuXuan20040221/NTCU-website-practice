@@ -25,7 +25,7 @@
             text-align: center;
         }
         .login-container input {
-            width: 100%;
+            width: 90%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
@@ -59,8 +59,11 @@
         <h2>Login</h2>
         <div id="error" class="error"></div>
         <form id="loginForm">
-            <input type="text" id="username" placeholder="User name" autocomplete="off" required>
-            <input type="password" id="password" placeholder="Password" required>
+            <label for="username">帳號</label>
+            <input type="text" id="username" placeholder="User name" autocomplete="off" required><br>
+            <label for="">密碼</lapasswordbel><br>
+            <input style="width: 70%;margin: 5px;" type="password" id="password" placeholder="Password" required>
+            <button style="width: auto;" onclick="show()">Show</button>
             <input type="text" id="captcha" placeholder="Enter Captcha" required>
             <div class="captcha-container">
                 <canvas id="captchaCanvas" width="150" height="50"></canvas>
@@ -148,6 +151,18 @@
             } else {
                 alert("Incorrect username, password, or verify");
                 generateCaptcha();
+            }
+        }
+        function show(){
+            const passwordInput = document.getElementById("password");
+            const button = event.target;
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                button.textContent = "Hide"; // Change button text to Hide
+            } else {
+                passwordInput.type = "password";
+                button.textContent = "Show"; // Change button text to Show
             }
         }
     </script>
