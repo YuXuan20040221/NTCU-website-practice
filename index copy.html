@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .login-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .login-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-container button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .captcha-container{
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <div id="error" class="error"></div>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="User name" autocomplete="off" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <input type="text" id="captcha" placeholder="Enter Captcha" required>
+            <div class="captcha-container">
+                <canvas id="captchaCanvas" width="150" height="50"></canvas>
+                <button style="height:30px;width:50px;font-size:10px;" type="button" onclick="generateCaptcha()">Reload</button>
+            </div>
+            <button onclick="login()">Login</button>
+        </form>
+    </div>
+
+    <script>
+        let generatedCaptcha = "";
+
+        // Captcha Generator using canvas
+        function generateCaptcha() {
+            const canvas = document.getElementById('captchaCanvas');
+            const ctx = canvas.getContext('2d');
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            generatedCaptcha = '';
+
+            // Clear the canvas for a fresh start
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Set canvas background color
+            ctx.fillStyle = '#f2f2f2';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Randomly generate captcha string
+            for (let i = 0; i < 6; i++) {
+                generatedCaptcha += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+
+            // Draw the captcha characters on the canvas
+            ctx.font = 'bold 30px Arial';
+            ctx.textBaseline = 'middle';
+
+            // Randomize position, color and rotation of each character
+            for (let i = 0; i < generatedCaptcha.length; i++) {
+                const x = 20 + i * 20;
+                const y = 25 + Math.random() * 10;
+                const angle = Math.random() * 0.4 - 0.2; // Random rotation angle (-0.2 to 0.2 radians)
+
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(angle);
+                ctx.fillStyle = getRandomColor();
+                ctx.fillText(generatedCaptcha[i], 0, 0);
+                ctx.restore();
+            }
+
+            // Add some random lines for complexity
+            for (let i = 0; i < 5; i++) {
+                ctx.strokeStyle = getRandomColor();
+                ctx.beginPath();
+                ctx.moveTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                ctx.lineTo(Math.random() * canvas.width, Math.random() * canvas.height);
+                ctx.stroke();
+            }
+        }
+
+        // Random color generator
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Call generateCaptcha() on page load
+        generateCaptcha();
+
+        // Login function to validate username, password, and captcha
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const captchaInput = document.getElementById("captcha").value;
+
+            const correctUsername = "user";
+            const correctPassword = "password123";
+
+            if (username == correctUsername && password == correctPassword && captchaInput.toUpperCase() === generatedCaptcha) {
+                alert("Login successful!");
+                //window.location.href = "welcome.html"; // Replace with actual page
+            } else {
+                alert("Incorrect username, password, or verify");
+                generateCaptcha();
+            }
+        }
+    </script>
+
+</body>
+</html>
