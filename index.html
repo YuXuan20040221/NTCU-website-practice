@@ -135,6 +135,7 @@
 
         // Login function to validate username, password, and captcha
         function login() {
+            event.preventDefault();
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
             const captchaInput = document.getElementById("captcha").value;
