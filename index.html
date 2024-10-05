@@ -140,11 +140,10 @@
             const captchaInput = document.getElementById("captcha").value;
 
             const correctUsername = "user";
-            const correctPassword = "password123";
+            const correctPassword = "123";
 
-            if (username == correctUsername && password == correctPassword && captchaInput.toUpperCase() === generatedCaptcha) {
-                alert("Login successful!");
-                //window.location.href = "welcome.html"; // Replace with actual page
+            if (username == correctUsername && password == correctPassword && captchaInput.toUpperCase() == generatedCaptcha) {
+                window.location.href = "light.html";
             } else {
                 alert("Incorrect username, password, or verify");
                 generateCaptcha();

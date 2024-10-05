@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跑馬燈示範</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .marquee {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            box-sizing: border-box;
+            border: 2px solid #4CAF50; /* 邊框顏色 */
+            background-color: #ffffff; /* 背景顏色 */
+            padding: 10px;
+            border-radius: 5px; /* 邊框圓角 */
+        }
+
+        .marquee span {
+            display: inline-block;
+            padding-left: 100%; /* 初始位置在可視範圍外 */
+            animation: marquee 10s linear infinite; /* 動畫效果 */
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translate(0, 0); /* 開始位置 */
+            }
+            100% {
+                transform: translate(-100%, 0); /* 結束位置 */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>魚ㄉ跑馬燈</h1>
+    <div>
+        <p>冒泡</p>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXRQLat7YQT7EfgQfFRq7RZeiMsYnQVFJqpg&s"/>
+    </div>
+    <div class="marquee">
+        <p>衝突</p>
+        <span>git裡的衝突就是當你的檔案跟git紀錄的檔案不一致，到時候他會叫你選擇要改哪個或合併</span>
+    </div>
+
+    <script>
+        // 如果需要，可以在這裡加入 JavaScript 代碼
+    </script>
+
+</body>
+</html>
